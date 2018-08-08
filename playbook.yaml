@@ -1,0 +1,27 @@
+- name: Create a techtest instance
+  hosts: localhost
+  gather_facts: False
+  vars:
+    key_name: test
+    instance_type: t2.nano
+    image: ami-b70554c8
+    region: us-east-1
+  tasks:
+    - name: Launch instance
+      ec2:
+         key_name: "{{ key_name }}"
+         instance_type: "{{ instance_type }}"
+         image: "{{ image }}"
+         wait: true
+         region: "{{ region }}"
+         user_data: |
+           #!/bin/bash
+           yum update
+           yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+           yum install -y nginx
+         exact_count: 1
+         instance_tags:
+           Name: "techtest-ansible"
+         count_tag:
+           Name: "techtest-ansible"
+      register: ec2

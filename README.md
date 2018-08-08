@@ -29,3 +29,12 @@ This file contains terraform configuration
 
 To remove stack run following:  
 ```terraform destroy -auto-approve``` (non-interactive)
+
+## 3.part
+file: _playbook.yaml_  
+This file contains ansible playbook configuration
+
+###How to use this playbook file  
+1. install requirements like: boto , using ```pip install boto```
+2. run ```ansible-playbook playbook.yaml```
+3. DONE
