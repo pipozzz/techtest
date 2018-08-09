@@ -85,8 +85,15 @@ Resources:
       SecurityGroupIds:
       - !Ref EC2InstanceSecurityGroup
       SubnetId: !Ref PublicSubnet
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+          easy_install ansible
+          yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+          ansible localhost -m yum -a "name=nginx state=present"
       Tags:
         - Key: env
           Value: techtest
         - Key: Name
           Value: techtest
+
